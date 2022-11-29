@@ -1,0 +1,40 @@
+.Login {
+    background-color: #22272e;
+    height: 100vh;
+}
+
+i.LoginIcon {
+    font-size: 1rem;
+    color: white;
+    margin: 50px;
+}
+
+.FillForm {
+    border-radius: 2em;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+}
+
+.InputFill.form-control-lg {
+    font-size: 1.5rem;
+}
+
+.btn-group-lg > .btn, .btn-lg {
+    --bs-btn-font-size: 1.5rem;
+}
+
+.LoginBtn.btn-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #42b72a;
+    --bs-btn-border-color: #42b72a;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #36a420;
+    --bs-btn-hover-border-color: #36a420;
+    --bs-btn-focus-shadow-rgb: 49,132,253;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #36a420;
+    --bs-btn-active-border-color: #36a420;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #42b72a;
+    --bs-btn-disabled-border-color: #42b72a;
+}
