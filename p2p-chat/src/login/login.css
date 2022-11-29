@@ -20,6 +20,10 @@ i.LoginIcon {
     width: 30vw;
 }
 
+.FillForm p {
+    cursor: pointer;
+}
+
 .InputFill.form-control-lg {
     font-size: 1.5rem;
 }

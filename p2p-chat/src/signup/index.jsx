@@ -1,6 +1,10 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./signup.css"
 
 function SignUp() {
+    const navigate = useNavigate();
+
     return (
         <div className="Signup d-flex flex-column align-content-center justify-content-center align-items-center w-100 vh-100">
             <div className="SignupTo pe-0">
@@ -22,13 +26,13 @@ function SignUp() {
                         <label for="exampleInputPassword1" className="form-label">Re-enter password</label>
                         <input type="password" className="InputFill form-control form-control-lg" id="exampleInputPassword1" />
                     </div>
-                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3">
+                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3" onClick={()=>navigate("../")}>
                         <p className="fs-2">Signup</p> 
                     </button>
                     <p className="fs-3 m-3 text-end">Have account?
-                        <a href="#" className="SignUpLink mb-5">
-                            <p className="d-inline p-2">Login</p>
-                        </a>
+                        <span href="#" className="SignUpLink mb-5" onClick={()=>navigate("../")}>
+                            <p className="d-inline p-2 text-decoration-underline text-primary">Login</p>
+                        </span>
                     </p>
                 </form>
             </div>

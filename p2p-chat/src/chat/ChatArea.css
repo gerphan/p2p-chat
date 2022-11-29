@@ -54,19 +54,7 @@
 
 .chat-area {
     position: relative;
-    z-index: -100;
-    /* animation: wipe-in 0.6s ease-in; */
 }
-
-@keyframes wipe-in {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
 
 .type-area {
     position: absolute;
@@ -91,9 +79,10 @@
 
 .add-friend {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    width: 50%;
+    transform: translateX(-50%);
     /* background-color: #15202B;
     color: white; */
 }
