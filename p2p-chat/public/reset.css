@@ -56,3 +56,12 @@ html {
     height: 20em;
     background-color: black;
 }
+
+* {
+	box-sizing: border-box;
+}
+body{
+	box-sizing: border-box;
+	/* background-color: #F0EAE2; */
+	font-family: 'Nunito', sans-serif;
+}
