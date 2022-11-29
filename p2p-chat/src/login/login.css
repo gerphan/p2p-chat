@@ -3,15 +3,21 @@
     height: 100vh;
 }
 
+.LoginTo {
+    position: relative;
+}
+
 i.LoginIcon {
-    font-size: 1rem;
+    font-size: 2rem;
     color: white;
-    margin: 50px;
+    top: 0;
+    position: absolute;
 }
 
 .FillForm {
     border-radius: 2em;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    width: 30vw;
 }
 
 .InputFill.form-control-lg {
