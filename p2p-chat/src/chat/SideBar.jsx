@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatArea.css";
 import ChatArea from "./ChatArea";
+import AddFriendArea from "./AddFriendArea";
 
 export default function SideBar () {
     const [openChatArea, setOpenChatArea] = useState(false);
@@ -33,7 +34,7 @@ export default function SideBar () {
                 </div>
                 <div className="p-1 bg-secondary mb-4 rounded fs-3"></div>
                 <div className="">
-                    <div className="chat-tab bg-light w-90 p-3" onClick={()=>setOpenChatArea(true)}>
+                    <div className="chat-tab bg-light w-90 p-3" onClick={()=>{setOpenAddFriend(false) ;setOpenChatArea(true)}}>
                         <p className="fw-bold pl-2">
                             <span className="text-success fs-5 float-start p-2"><i className="fa-solid fa-circle p-1"></i> </span>
                             Nhật Hạ 
@@ -76,6 +77,7 @@ export default function SideBar () {
                 </div>
             </div>
             {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} />}
+            {openAddFriend && <AddFriendArea setOpenChatArea={setOpenChatArea} />}
         </div>
     )
 }
