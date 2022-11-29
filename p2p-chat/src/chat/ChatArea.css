@@ -79,10 +79,26 @@
 
 .add-friend {
     position: absolute;
-    top: 30%;
+    top: 27%;
     left: 50%;
     width: 50%;
     transform: translateX(-50%);
     /* background-color: #15202B;
     color: white; */
+}
+
+.add-friend ::placeholder {
+    color: #fff;
+}
+
+.search-tab {
+    background-color: #15202B;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.search-tab i {
+    border-left: 4px solid #15202B;
+    font-size: 26px;
 }
