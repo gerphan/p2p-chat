@@ -2,9 +2,8 @@ import "./signup.css"
 
 function SignUp() {
     return (
-        <div className="Signup d-flex align-self-start row">
-        <div className="SignupContainer container-lg d-flex justify-content-center align-content-center row">
-            <div className="SignupTo">
+        <div className="Signup d-flex flex-column align-content-center justify-content-center align-items-center w-100 vh-100">
+            <div className="SignupTo pe-0">
                 <p className="display-2 text-center fw-bold text-light p-0">Signup P2P
                     <i className="SignupIcon fa-regular fa-message text-center"></i>
                 </p>
@@ -23,7 +22,9 @@ function SignUp() {
                         <label for="exampleInputPassword1" className="form-label">Re-enter password</label>
                         <input type="password" className="InputFill form-control form-control-lg" id="exampleInputPassword1" />
                     </div>
-                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3">Signup</button>
+                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3">
+                        <p className="fs-2">Signup</p> 
+                    </button>
                     <p className="fs-3 m-3 text-end">Have account?
                         <a href="#" className="SignUpLink mb-5">
                             <p className="d-inline p-2">Login</p>
@@ -31,7 +32,6 @@ function SignUp() {
                     </p>
                 </form>
             </div>
-        </div>
         </div>
     );
   }
