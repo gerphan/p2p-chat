@@ -22,11 +22,57 @@
 }
 
 .chat-bubble {
-    /* rounded-top rounded-end w-25 */
+    position: relative;
     width: 40%;
     padding: 20px;
+    padding-bottom: 45px;
+    line-height: 1.3;
+    color: #fff;
+}
+
+.chat-bubble.friend {
     border-radius: 30px 30px 30px 7px;
     background-color: #394f61;
-    line-height: 1.3;
+}
 
+.chat-bubble.self {
+    border-radius: 30px 30px 7px 30px;
+    background-color: #757575;
+}
+
+.chat-bubble span{
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
+    padding-top: -4px;
+    color: #ADADAD;
+}
+
+.display-area {
+    height: 87%;
+}
+
+.chat-area {
+    position: relative;
+}
+
+.type-area {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 85px;
+    padding: 15px;
+    background-color: #15202B;
+}
+
+.type-area textarea {
+    /* resize: none; */
+    min-height: 25px;
+    height:10px;
+    max-height: 100px;
+}
+
+.type-area i {
+    font-size: 35px;
+    cursor: pointer;
 }
