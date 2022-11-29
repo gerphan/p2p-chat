@@ -29,6 +29,18 @@ function SignUp() {
                     <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3" onClick={()=>navigate("../")}>
                         <p className="fs-2">Signup</p> 
                     </button>
+                    <div class="ExistedUsername alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div className="ms-3">
+                            Existed username
+                        </div>
+                    </div>
+                    <div class="PasswordDoNotMatch alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <div className="ms-3">
+                            Password do not match
+                        </div>
+                    </div>
                     <p className="fs-3 m-3 text-end">Have account?
                         <span href="#" className="SignUpLink mb-5" onClick={()=>navigate("../")}>
                             <p className="d-inline p-2 text-decoration-underline text-primary">Login</p>

@@ -25,6 +25,12 @@ function Login() {
                             <button type="submit" className="LoginBtn btn btn-primary btn-lg mt-3 mb-3" onClick={()=>navigate("../chat")}>
                                 <p className="fs-2">Login</p> 
                             </button>
+                            <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                <div className="ms-3">
+                                    Incorrect username or password
+                                </div>
+                            </div>
                             <p className="fs-3 m-3 text-end">New?
                                 <span className="SignUpLink mb-5" onClick={()=>navigate("../sign-up")}>
                                     <p className="d-inline p-2 text-decoration-underline text-primary">Create Account</p>
