@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ChatArea.css";
 
 export default function ChatArea () {
+    // const [message, setMessage] = useState('');
+
     return(
         <div className="col chat-area">
             <p className="display-4 shadow fw-bold border-bottom p-4">
@@ -24,9 +26,9 @@ export default function ChatArea () {
                 </div>
             </div>
             <div className="justify-content-center align-items-center type-area">
-                <textarea rows="1" id="message" placeholder="Aa..."  className="border border-0 rounded-4 p-3 ps-4 fs-1"></textarea>
-            <i class="fa-solid fa-file-arrow-up ps-4 pe-4 text-white text-center"></i>
-            <i class="fa-solid fa-paper-plane pe-4 text-white text-center"></i>
+                <textarea rows="1" id="message" placeholder="Aa..."  className="border border-0 rounded-4 p-3 ps-4 fs-1" ></textarea>
+                <i className="fa-solid fa-file-arrow-up ps-4 pe-4 text-white text-center"></i>
+                <i className="fa-solid fa-paper-plane pe-4 text-white text-center"></i>
             </div>
         </div>
     )

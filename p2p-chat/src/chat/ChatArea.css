@@ -102,6 +102,14 @@
     overflow-x: hidden;
 }
 
+input:focus::placeholder {
+    color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
 .search-tab i {
     border-left: 4px solid #15202B;
     font-size: 26px;

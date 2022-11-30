@@ -25,7 +25,7 @@ export default function SideBar () {
                     </div>
                     <button type="button" className="float-end btn btn-lg btn-warning fs-2 w-100 mt-4 text-dark p-2" 
                             onClick={()=>{setOpenChatArea(false); setOpenAddFriend(true)}}>
-                        Add friend <i class="fa-solid fa-circle-plus"></i>
+                        Add friend <i className="fa-solid fa-circle-plus"></i>
                     </button>
                 </div>
                 <div className="p-3 m-1 mb-5 bg-light rounded fs-3 text-secondary justify-content-center align-items-center d-flex">
