@@ -2,6 +2,8 @@
     background-color: #15202B;
     /* background-color: #192734; */
     /* background-color: #22303c; */
+    overflow-y: scroll;
+    height: 100%;
 }
 
 .chat-tab {
@@ -49,11 +51,13 @@
 }
 
 .display-area {
-    height: 87%;
+    height: calc(100% - 85px - 75px);
+    overflow-y: scroll;
 }
 
 .chat-area {
     position: relative;
+    height: 100%;
 }
 
 .type-area {
