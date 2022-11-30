@@ -30,7 +30,7 @@ export default function SideBar () {
                 </div>
                 <div className="p-3 m-1 mb-5 bg-light rounded fs-3 text-secondary justify-content-center align-items-center d-flex">
                     <input type="text" id="friend-search" placeholder="Search" className="w-100 border border-0 bg-light"/>
-                    <i className="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass ms-2"></i>
                 </div>
                 <div className="p-1 bg-secondary mb-4 rounded fs-3"></div>
                 <div className="">
