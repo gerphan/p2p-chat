@@ -12,12 +12,14 @@ i.LoginIcon {
     color: white;
     top: 0;
     position: absolute;
+    margin-left: 1rem;
 }
 
 .FillForm {
     border-radius: 2em;
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     width: 30vw;
+    background-color: #ebecf0;
 }
 
 .FillForm p {
@@ -47,4 +49,27 @@ i.LoginIcon {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #42b72a;
     --bs-btn-disabled-border-color: #42b72a;
+}
+
+.SignUpLink {
+    display: inline-block;
+    position: relative;
+  }
+  
+.SignUpLink::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #22272e;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.SignUpLink:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
