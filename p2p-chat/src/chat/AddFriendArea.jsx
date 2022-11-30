@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-export default function AddFriendArea ( { allUser, setAllUser } ) {
+export default function AddFriendArea ( {} ) {
+
+    const [allUser, setAllUser] = useState([
+        {'id' : 'nhatha', 'is_friend' : 1}, 
+        {'id' : 'luchuy', 'is_friend' : 0},
+        {'id' : 'hongduc', 'is_friend' : 1},
+        {'id' : 'locle', 'is_friend' : 0},
+        {'id' : 'anonymous', 'is_friend' : 0},
+    ]);
 
     const [openAlert, setOpenAlert] = useState(false);
 

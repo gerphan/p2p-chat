@@ -2,8 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css"
 
-function Login() {
+function Login( {user, setUser} ) {
     const navigate = useNavigate();
+
+    const handleLogin = () => {
+        navigate("../chat");
+    }
 
     return (
             <div className="Login d-flex flex-column align-content-center justify-content-center align-items-center w-100 vh-100">
@@ -22,7 +26,7 @@ function Login() {
                                 <label for="exampleInputPassword1" className="form-label fs-1 fw-bold mb-3">Password</label>
                                 <input type="password" className="InputFill form-control form-control-lg border-0" id="exampleInputPassword1" />
                             </div>
-                            <button type="submit" className="LoginBtn btn btn-primary btn-lg mt-3 mb-3" onClick={()=>navigate("../chat")}>
+                            <button type="submit" className="LoginBtn btn btn-primary btn-lg mt-3 mb-3" onClick={()=>handleLogin()}>
                                 <p className="fs-2 fw-bold">Login</p> 
                             </button>
                             <p className="fs-3 mt-3 mb-3 text-end">New?
