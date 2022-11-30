@@ -13,6 +13,16 @@
     cursor: pointer;
 }
 
+.add-tab {
+    border-radius: 10px;
+    margin-bottom: 18px;
+    font-size: 25px;
+}
+
+.add-tab i {
+    cursor: pointer;
+}
+
 .text-message {
   	display: block;
   	display: -webkit-box;

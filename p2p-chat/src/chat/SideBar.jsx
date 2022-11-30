@@ -10,6 +10,14 @@ export default function SideBar () {
 
     const navigate = useNavigate();
 
+    const [allUser, setAllUser] = useState([
+        {'id' : 'nhatha', 'is_friend' : 1}, 
+        {'id' : 'luchuy', 'is_friend' : 0},
+        {'id' : 'hongduc', 'is_friend' : 1},
+        {'id' : 'locle', 'is_friend' : 0},
+        {'id' : 'anonymous', 'is_friend' : 0},
+    ]);
+
     return (
         <div className="w-100 vh-100 row g-0">
             <div className="col-3 p-5 chat-container">
@@ -76,8 +84,8 @@ export default function SideBar () {
                     </div>
                 </div>
             </div>
-            {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} />}
-            {openAddFriend && <AddFriendArea setOpenChatArea={setOpenChatArea} />}
+            {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} allUser={allUser} setAllUser={setAllUser} />}
+            {openAddFriend && <AddFriendArea allUser={allUser} setAllUser={setAllUser}/>}
         </div>
     )
 }
