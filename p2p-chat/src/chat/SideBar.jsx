@@ -14,9 +14,8 @@ export default function SideBar ( {
 
     const [openLoading, setOpenLoading] = useState(false);
 
-    const [openChatArea, setOpenChatArea] = useState(false);
     const [openAddFriend, setOpenAddFriend] = useState(true);
-    // const [friend, setFriend] = useState([]);
+    const [friend, setFriend] = useState();
 
     const navigate = useNavigate();
 
@@ -34,20 +33,20 @@ export default function SideBar ( {
 
     const handleOpenChat = (value) => {
         setOpenLoading(true);
-        let ws = new WebSocket("ws://localhost:3000/");
-        console.log(ws.readyState)
-        if (ws.readyState === 3) {
-            Axios.post("http://127.0.0.1:5000:1011/")
-                .then((response)=>{
-                    console.log(ws.readyState)
-                })
-                .catch((err)=>{})
-        }
+        // let ws = new WebSocket("ws://localhost:3000/");
+        // console.log(ws.readyState)
+        // if (ws.readyState === 3) {
+        //     Axios.post("")
+        //         .then((response)=>{
+        //             console.log(ws.readyState)
+        //         })
+        //         .catch((err)=>{})
+        // }
 
         // console.log(ws);
         // if (ws.readyState)
+        setFriend(value)
         setOpenAddFriend(false);
-        setOpenChatArea(true);
         setOpenLoading(false);
     }
 
@@ -66,7 +65,7 @@ export default function SideBar ( {
                         </button>
                     </div>
                     <button type="button" className="float-end btn btn-lg btn-warning fs-2 w-100 mt-4 text-dark p-2" 
-                            onClick={()=>{setOpenChatArea(false); setOpenAddFriend(true)}}>
+                            onClick={()=>{setOpenAddFriend(true)}}>
                         Add friend <i className="fa-solid fa-circle-plus"></i>
                     </button>
                 </div>
@@ -124,7 +123,7 @@ export default function SideBar ( {
                     </div> */}
                 </div>
             </div>
-            {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} />}
+            {!openAddFriend && <ChatArea friend={friend} />}
             {openAddFriend && <AddFriendArea user={user} allStranger={allStranger} setAllStranger={setAllStranger} setAllFriend={setAllFriend} />}
         </div>
     )

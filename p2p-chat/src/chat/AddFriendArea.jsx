@@ -6,25 +6,23 @@ export default function AddFriendArea ( { user, allStranger, setAllStranger, set
     const [openAlert, setOpenAlert] = useState(false);
 
     const handleAddFriend = (e) => {
-        let port;
         Axios.get("http://localhost:3001/cn-get-port")
             .then((response)=>{
-                port = response.data[0].length
-            })
-        Axios.post("http://localhost:3001/cn-add-friend", {
-            id: port,
-            current_id: user[0].id,
-            friend_id: e.id,
-            port: port
-        })
-            .then(()=>{
-                setAllStranger(allStranger.filter(item => item.id !== e.id));
-                setAllFriend(oldArray => [...oldArray, e]);
-                setOpenAlert(true);
-                setTimeout(() => {
-                    setOpenAlert(false)
-                }, 1200);
-            })        
+                Axios.post("http://localhost:3001/cn-add-friend", {
+                    id: response.data[0].length,
+                    current_id: user[0].id,
+                    friend_id: e.id,
+                    port: response.data[0].length
+                })
+                    .then(()=>{
+                        setAllStranger(allStranger.filter(item => item.id !== e.id));
+                        setAllFriend(oldArray => [...oldArray, e]);
+                        setOpenAlert(true);
+                        setTimeout(() => {
+                            setOpenAlert(false)
+                        }, 1200);
+                    })  
+        })      
     }
 
     const [search, setSearch] = useState('');

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "./ChatArea.css";
 
-export default function ChatArea ( {} ) {
+export default function ChatArea ( {friend} ) {
     // const [message, setMessage] = useState('');
 
     return(
         <div className="col chat-area">
             <p className="display-4 shadow fw-bold border-bottom p-4">
                 <span className="text-success fs-4 float-start pt-1"><i className="fa-solid fa-circle p-4 pt-3"></i> </span>
-                Nhật Hạ
+                {friend.username}
             </p>
             <div className="p-5 fs-1 display-area">
                 <div className="mb-5 row g-0">
