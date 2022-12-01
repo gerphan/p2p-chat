@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from "react";
+import Axios from "axios"
 
-export default function AddFriendArea ( { allFriend, setAllFriend } ) {
-
-    const [allUser, setAllUser] = useState([
-        {'id' : 'nhatha'}, 
-        {'id' : 'luchuy'},
-        {'id' : 'hongduc'},
-        {'id' : 'locle'},
-        {'id' : 'anonymous'},
-    ]);
+export default function AddFriendArea ( { user, allStranger, setAllStranger, setAllFriend } ) {
 
     const [openAlert, setOpenAlert] = useState(false);
 
-    const handleAddFriend = () => {
-        setOpenAlert(true);
-        setTimeout(() => {
-            setOpenAlert(false)
-        }, 1200);
+    const handleAddFriend = (e) => {
+        let port;
+        Axios.get("http://localhost:3001/cn-get-port")
+            .then((response)=>{
+                port = response.data[0].length
+            })
+        Axios.post("http://localhost:3001/cn-add-friend", {
+            id: port,
+            current_id: user[0].id,
+            friend_id: e.id,
+            port: port
+        })
+            .then(()=>{
+                setAllStranger(allStranger.filter(item => item.id !== e.id));
+                setAllFriend(oldArray => [...oldArray, e]);
+                setOpenAlert(true);
+                setTimeout(() => {
+                    setOpenAlert(false)
+                }, 1200);
+            })        
     }
 
     const [search, setSearch] = useState('');
@@ -25,11 +33,11 @@ export default function AddFriendArea ( { allFriend, setAllFriend } ) {
     useEffect(()=>{
         setSearchUser([]);
         if (search !== '') {
-            allUser.forEach(user => {
-                user.id.includes(search) && setSearchUser(oldArray => [...oldArray, user]);
+            allStranger.forEach(user => {
+                user.username.includes(search) && setSearchUser(oldArray => [...oldArray, user]);
             })
         }
-    },[search])
+    },[search, allStranger])
 
     return(
         <div className="col chat-area">
@@ -45,9 +53,9 @@ export default function AddFriendArea ( { allFriend, setAllFriend } ) {
                         return (
                             <div key={index} className="add-tab bg-light d-flex">
                                 <p className="fw-bold w-100 p-4 text-start">
-                                    {value.id}
+                                    {value.username}
                                 </p>
-                                <i className="fa-solid fa-circle-plus p-4" onClick={()=>{handleAddFriend()}}></i>
+                                <i className="fa-solid fa-circle-plus p-4" onClick={()=>{handleAddFriend(value)}}></i>
                             </div>
                         )
                     })}

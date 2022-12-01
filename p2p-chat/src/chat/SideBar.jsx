@@ -4,49 +4,60 @@ import Axios from "axios";
 import "./ChatArea.css";
 import ChatArea from "./ChatArea";
 import AddFriendArea from "./AddFriendArea";
+import Loading from "../loading/loading";
 
-export default function SideBar ( {user, setUser, setLogin} ) {
+export default function SideBar ( {
+    user, setUser, setLogin,
+    allFriend, setAllFriend,
+    allStranger, setAllStranger
+} ) {
+
+    const [openLoading, setOpenLoading] = useState(false);
+
     const [openChatArea, setOpenChatArea] = useState(false);
     const [openAddFriend, setOpenAddFriend] = useState(true);
+    // const [friend, setFriend] = useState([]);
 
     const navigate = useNavigate();
-
-    const [allFriend, setAllFriend] = useState([
-        {'id' : 'nhatha'}, 
-        {'id' : 'luchuy'},
-        {'id' : 'hongduc'},
-        {'id' : 'locle'},
-        {'id' : 'anonymous'},
-    ]);
 
     const [search, setSearch] = useState('');
     const [searchFriend, setSearchFriend] = useState([]);
 
     useEffect(()=>{
+        setOpenLoading(true);
         setSearchFriend([]);
         allFriend.forEach(friend => {
-            friend.id.includes(search) && setSearchFriend(oldArray => [...oldArray, friend]);
+            friend.username.includes(search) && setSearchFriend(oldArray => [...oldArray, friend]);
         })
-    },[search])
+        setOpenLoading(false);
+    },[search, allFriend])
 
-    const handleOpenChat = () => {
-        let ws = new WebSocket("ws://localhost:3002");
+    const handleOpenChat = (value) => {
+        setOpenLoading(true);
+        let ws = new WebSocket("ws://localhost:3000/");
+        console.log(ws.readyState)
+        if (ws.readyState === 3) {
+            Axios.post("http://127.0.0.1:5000:1011/")
+                .then((response)=>{
+                    console.log(ws.readyState)
+                })
+                .catch((err)=>{})
+        }
 
-        Axios.post("../../../server/app.py")
-            .then(()=>{})
-            .catch((err)=>{})
-        console.log(ws);
+        // console.log(ws);
         // if (ws.readyState)
         setOpenAddFriend(false);
         setOpenChatArea(true);
+        setOpenLoading(false);
     }
 
     return (
         <div className="w-100 vh-100 row g-0">
+            {openLoading && <Loading />}
             <div className="col-3 p-5 chat-container">
                 <div className="text-light mb-4 row g-0 justify-content-center align-items-center ps-1">
                     <div className="col pb-3">
-                        <p className="display-5 fw-bold">Anonymous</p>
+                        <p className="display-5 fw-bold">{user[0].username}</p>
                         <p className="text-success fs-2 fw-bolder">Online</p>
                     </div>
                     <div className="col-xxl-4 col-xl-12">
@@ -66,17 +77,18 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                 </div>
                 <div className="p-1 bg-secondary mb-4 rounded fs-3"></div>
                 <div className="">
-                    {searchFriend.map((value) => {
+                    {searchFriend.map((value, index) => {
                         return (
-                            <div className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat()}>
+                            <div key={index} className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat(value)}>
                                 <p className="fw-bold pl-2">
-                                    <span className={"fs-5 float-start p-2" + " text-success"}><i className="fa-solid fa-circle p-1"></i> </span>
-                                    {value.id}
-                                    <span className="float-end fw-light fs-3 pt-2">16:45</span>
+                                    <span className={"fs-5 float-start p-2 pb-3" + " text-success"}><i className="fa-solid fa-circle p-1"></i> </span>
+                                    {value.username}
+                                    <p className="text-success fs-2">Online</p>
+                                    {/* <span className="float-end fw-light fs-3 pt-2">16:45</span> */}
                                 </p>
-                                <p className={"fs-2 pt-2 pr-3 text-message" + " fw-bold"}>
+                                {/* <p className={"fs-2 pt-2 pr-3 text-message" + " fw-bold"}>
                                     Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline
-                                </p>
+                                </p> */}
                             </div>
                         )
                     })}
@@ -112,8 +124,8 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                     </div> */}
                 </div>
             </div>
-            {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} allFriend={allFriend} setAllFriend={setAllFriend} />}
-            {openAddFriend && <AddFriendArea allFriend={allFriend} setAllFriend={setAllFriend} />}
+            {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} />}
+            {openAddFriend && <AddFriendArea user={user} allStranger={allStranger} setAllStranger={setAllStranger} setAllFriend={setAllFriend} />}
         </div>
     )
 }

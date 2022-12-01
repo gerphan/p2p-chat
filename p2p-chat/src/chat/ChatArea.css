@@ -9,7 +9,7 @@
 .chat-tab {
     border-radius: 10px;
     margin-bottom: 18px;
-    font-size: 27px;
+    font-size: 28px;
     cursor: pointer;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .type-area i {
-    font-size: 30px;
+    font-size: 35px;
     cursor: pointer;
 }
 
@@ -123,4 +123,16 @@ input:focus {
 .search-tab i {
     border-left: 4px solid #15202B;
     font-size: 26px;
+}
+
+.file-button {
+    position: relative;
+}
+
+.file-button input {
+    position: absolute;
+    height: 35px;
+    width: 26px;
+    cursor: pointer;
+    opacity: 0;
 }

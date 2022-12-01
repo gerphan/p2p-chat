@@ -27,7 +27,10 @@ export default function ChatArea ( {} ) {
             </div>
             <div className="justify-content-center align-items-center type-area">
                 <textarea rows="1" id="message" placeholder="Aa..."  className="border border-0 rounded-4 p-3 ps-4 fs-1" ></textarea>
-                <i className="fa-solid fa-file-arrow-up ps-4 pe-4 text-white text-center"></i>
+                <div className="file-button ps-4 pe-4">
+                    <input type="file" name="file" id="file" data-multiple-caption="{count} files selected" multiple />
+                    <i className="fa-solid fa-file-arrow-up text-white text-center"></i>
+                </div>
                 <i className="fa-solid fa-paper-plane pe-4 text-white text-center"></i>
             </div>
         </div>
