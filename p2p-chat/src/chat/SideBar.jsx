@@ -4,7 +4,7 @@ import "./ChatArea.css";
 import ChatArea from "./ChatArea";
 import AddFriendArea from "./AddFriendArea";
 
-export default function SideBar ( {user, setUser} ) {
+export default function SideBar ( {user, setUser, setLogin} ) {
     const [openChatArea, setOpenChatArea] = useState(false);
     const [openAddFriend, setOpenAddFriend] = useState(true);
 
@@ -21,7 +21,7 @@ export default function SideBar ( {user, setUser} ) {
                         <p className="text-success fs-2 fw-bolder">Online</p>
                     </div>
                     <div className="col-xxl-4 col-xl-12">
-                        <button type="button" className="float-end btn btn-lg btn-danger fs-2 w-100" onClick={()=>{navigate("../")}}>
+                        <button type="button" className="float-end btn btn-lg btn-danger fs-2 w-100" onClick={()=>{setLogin(false); navigate("../")}}>
                             Log out <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                     </div>

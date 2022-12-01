@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css"
 
-function Login( {user, setUser} ) {
+function Login( {user, setUser, setLogin} ) {
     const navigate = useNavigate();
 
+    const [openAlert, setOpenAlert] = useState(false);
+
+    const handleAlert = () => {
+        setOpenAlert(true);
+        setTimeout(() => {
+            setOpenAlert(false)
+        }, 1200);
+    }
+
     const handleLogin = () => {
+        // handleAlert();
+        setLogin(true);
         navigate("../chat");
     }
 
@@ -34,12 +45,14 @@ function Login( {user, setUser} ) {
                                     <p className="d-inline p-2">Create Account</p>
                                 </span>
                             </p>
-                            <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                <div className="ms-3">
-                                    Incorrect username or password
+                            {openAlert && 
+                                <div class="alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <div className="ms-3">
+                                        Incorrect username or password
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </form>
                     </div>
             </div>

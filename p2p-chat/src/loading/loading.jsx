@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "./loading.css"
 
 function Loading() {
-    const navigate = useNavigate();
 
     return (
         <div className="LoadingContainer w-100 h-100 d-flex">

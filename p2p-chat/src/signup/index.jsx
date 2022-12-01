@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./signup.css"
 
 function SignUp( {user, setUser} ) {
     const navigate = useNavigate();
+
+    const [openAlert, setOpenAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+
+    const handleSignup = () => {
+        setAlertMessage()
+        setOpenAlert(true);
+        setTimeout(() => {
+            setOpenAlert(false)
+        }, 1200);
+        // navigate('../')
+    }
 
     return (
         <div className="Signup d-flex flex-column align-content-center justify-content-center align-items-center w-100 vh-100">
@@ -26,7 +38,7 @@ function SignUp( {user, setUser} ) {
                         <label for="exampleInputPassword1" className="form-label fs-1 fw-bold mb-3">Re-enter password</label>
                         <input type="password" className="InputFill form-control form-control-lg border-0" id="exampleInputPassword1" />
                     </div>
-                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3 fw-bold" onClick={()=>navigate("../")}>
+                    <button type="submit" className="SignupBtn btn btn-primary btn-lg mt-3 mb-3 fw-bold" onClick={()=>handleSignup()}>
                         <p className="fs-2">Signup</p> 
                     </button>
                     <p className="fs-3 mt-3 mb-3 text-end">Have account?
@@ -34,18 +46,14 @@ function SignUp( {user, setUser} ) {
                             <p className="d-inline p-2">Login</p>
                         </span>
                     </p>
-                    <div class="ExistedUsername alert alert-danger d-flex align-items-center justify-content-center" role="alert">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <div className="ms-3">
-                            Existed username
+                    {openAlert &&
+                        <div class="ExistedUsername alert alert-danger d-flex align-items-center justify-content-center" role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div className="ms-3">
+                                Existed username
+                            </div>
                         </div>
-                    </div>
-                    <div class="PasswordDoNotMatch alert alert-danger d-flex align-items-center justify-content-center" role="alert">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                        <div className="ms-3">
-                            Password do not match
-                        </div>
-                    </div>
+                    }
                 </form>
             </div>
         </div>
