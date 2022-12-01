@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 import "./ChatArea.css";
 import ChatArea from "./ChatArea";
 import AddFriendArea from "./AddFriendArea";
@@ -10,7 +11,35 @@ export default function SideBar ( {user, setUser, setLogin} ) {
 
     const navigate = useNavigate();
 
-    const [allFriend, setAllFriend] = useState([]);
+    const [allFriend, setAllFriend] = useState([
+        {'id' : 'nhatha'}, 
+        {'id' : 'luchuy'},
+        {'id' : 'hongduc'},
+        {'id' : 'locle'},
+        {'id' : 'anonymous'},
+    ]);
+
+    const [search, setSearch] = useState('');
+    const [searchFriend, setSearchFriend] = useState([]);
+
+    useEffect(()=>{
+        setSearchFriend([]);
+        allFriend.forEach(friend => {
+            friend.id.includes(search) && setSearchFriend(oldArray => [...oldArray, friend]);
+        })
+    },[search])
+
+    const handleOpenChat = () => {
+        let ws = new WebSocket("ws://localhost:3002");
+
+        Axios.post("../../../server/app.py")
+            .then(()=>{})
+            .catch((err)=>{})
+        console.log(ws);
+        // if (ws.readyState)
+        setOpenAddFriend(false);
+        setOpenChatArea(true);
+    }
 
     return (
         <div className="w-100 vh-100 row g-0">
@@ -31,22 +60,27 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                     </button>
                 </div>
                 <div className="p-3 m-1 mb-5 bg-light rounded fs-3 text-secondary justify-content-center align-items-center d-flex">
-                    <input type="text" id="friend-search" placeholder="Search" className="w-100 border border-0 bg-light"/>
+                    <input type="text" id="friend-search" placeholder="Search" className="w-100 border border-0 bg-light"
+                            value={search} onChange={(e)=>{setSearch(e.target.value)}}/>
                     <i className="fa-solid fa-magnifying-glass ms-2"></i>
                 </div>
                 <div className="p-1 bg-secondary mb-4 rounded fs-3"></div>
                 <div className="">
-                    <div className="chat-tab bg-light w-90 p-3" onClick={()=>{setOpenAddFriend(false) ;setOpenChatArea(true)}}>
-                        <p className="fw-bold pl-2">
-                            <span className="text-success fs-5 float-start p-2"><i className="fa-solid fa-circle p-1"></i> </span>
-                            Nhật Hạ 
-                            <span className="float-end fw-light fs-3 pt-2">16:45</span>
-                        </p>
-                        <p className="fs-2 pt-2 pr-3 text-message fw-bold">
-                            Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline
-                        </p>
-                    </div>
-                    <div className="chat-tab bg-light w-90 p-3">
+                    {searchFriend.map((value) => {
+                        return (
+                            <div className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat()}>
+                                <p className="fw-bold pl-2">
+                                    <span className={"fs-5 float-start p-2" + " text-success"}><i className="fa-solid fa-circle p-1"></i> </span>
+                                    {value.id}
+                                    <span className="float-end fw-light fs-3 pt-2">16:45</span>
+                                </p>
+                                <p className={"fs-2 pt-2 pr-3 text-message" + " fw-bold"}>
+                                    Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline
+                                </p>
+                            </div>
+                        )
+                    })}
+                    {/* <div className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat()}>
                         <p className="fw-bold pl-2">
                             <span className="text-secondary fs-5 float-start p-2"><i className="fa-solid fa-circle p-1"></i> </span>
                             Lục Huy
@@ -56,7 +90,7 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                             Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline huhuh
                         </p>
                     </div>
-                    <div className="chat-tab bg-light w-90 p-3">
+                    <div className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat()}>
                         <p className="fw-bold pl-2">
                             <span className="text-warning fs-5 float-start p-2"><i className="fa-solid fa-circle p-1"></i> </span>
                             Lộc Lê 
@@ -66,7 +100,7 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                             Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline huhuh
                         </p>
                     </div>
-                    <div className="chat-tab bg-light w-90 p-3">
+                    <div className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat()}>
                         <p className="fw-bold pl-2">
                             <span className="text-success fs-5 float-start p-2"><i className="fa-solid fa-circle p-1"></i> </span>
                             Hồng Đức 
@@ -75,11 +109,11 @@ export default function SideBar ( {user, setUser, setLogin} ) {
                         <p className="fs-2 pt-2 pr-3 text-message">
                             Bạn: Buồn ngủ quá trời mẹ ơi khóc khóc các kiểu, rồi sao coi đá banh huhu, quá là nhiều deadline huhuh
                         </p>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {openChatArea && <ChatArea setOpenChatArea={setOpenChatArea} allFriend={allFriend} setAllFriend={setAllFriend} />}
-            {openAddFriend && <AddFriendArea />}
+            {openAddFriend && <AddFriendArea allFriend={allFriend} setAllFriend={setAllFriend} />}
         </div>
     )
 }

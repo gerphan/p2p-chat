@@ -1,6 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./login.css"
+import Axios from "axios";
+import "./login.css";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCl1BRqEhNXaJggG6O2bbhiwWfMawNnDvI",
+  authDomain: "computernetwork-9dfeb.firebaseapp.com",
+  projectId: "computernetwork-9dfeb",
+  storageBucket: "computernetwork-9dfeb.appspot.com",
+  messagingSenderId: "734668976914",
+  appId: "1:734668976914:web:e9118f695e0452129fb9cb"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 function Login( {user, setUser, setLogin} ) {
     const navigate = useNavigate();
@@ -15,9 +33,14 @@ function Login( {user, setUser, setLogin} ) {
     }
 
     const handleLogin = () => {
-        // handleAlert();
-        setLogin(true);
-        navigate("../chat");
+        Axios.post("../../../server/app.py")
+            .then((response)=>{
+                
+                handleAlert();
+                setLogin(true);
+                navigate("../chat");
+            })
+            .catch((err)=>{})
     }
 
     return (

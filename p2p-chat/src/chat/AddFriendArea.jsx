@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-export default function AddFriendArea ( {} ) {
+export default function AddFriendArea ( { allFriend, setAllFriend } ) {
 
     const [allUser, setAllUser] = useState([
-        {'id' : 'nhatha', 'is_friend' : 1}, 
-        {'id' : 'luchuy', 'is_friend' : 0},
-        {'id' : 'hongduc', 'is_friend' : 1},
-        {'id' : 'locle', 'is_friend' : 0},
-        {'id' : 'anonymous', 'is_friend' : 0},
+        {'id' : 'nhatha'}, 
+        {'id' : 'luchuy'},
+        {'id' : 'hongduc'},
+        {'id' : 'locle'},
+        {'id' : 'anonymous'},
     ]);
 
     const [openAlert, setOpenAlert] = useState(false);
@@ -42,7 +42,7 @@ export default function AddFriendArea ( {} ) {
                 </div>
                 <div className="mt-3 p-4 rounded-5 search-tab">
                     {searchUser.map((value, index)=>{
-                        return !value.is_friend && (
+                        return (
                             <div key={index} className="add-tab bg-light d-flex">
                                 <p className="fw-bold w-100 p-4 text-start">
                                     {value.id}

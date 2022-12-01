@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ChatArea.css";
 
-export default function ChatArea () {
+export default function ChatArea ( {} ) {
     // const [message, setMessage] = useState('');
 
     return(
