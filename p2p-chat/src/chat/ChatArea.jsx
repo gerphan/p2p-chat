@@ -1,8 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
 import "./ChatArea.css";
 
-export default function ChatArea ( {friend} ) {
+export default function ChatArea ( {user, friend} ) {
     // const [message, setMessage] = useState('');
+
+    let ws = new WebSocket(`ws://localhost:1/`);
+
+    // console.log(ws.readyState);
+
+    if (ws.readyState ===0) {
+        Axios.post(`http://127.0.0.1:5000/creator/2`)
+            .then((res)=>{
+                console.log(res);
+            })
+    }
+
+    // ws = new WebSocket(`ws://localhost:1/`);
+
+    // useEffect(()=>{console.log(ws.readyState)},[ws])
+
+    // console.log(ws.readyState)
 
     return(
         <div className="col chat-area">

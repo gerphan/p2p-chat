@@ -59,6 +59,8 @@ function App() {
     }
   },[user])
 
+  console.log(allUser)
+
   useEffect(()=>{
     if (login) {
       setOpenLoading(true);
@@ -70,14 +72,21 @@ function App() {
               friend_id: value.id
           })
               .then((response)=>{
-                  if (response.data.length === 0)
-                      setAllStranger(oleArray => [...oleArray,value])
+                  if (response.data.length === 0 && value.id !== user[0].id)
+                      setAllStranger(oldArray => [...oldArray,value])
                   else if(value.id !== user[0].id)
-                      setAllFriend(oleArray => [...oleArray,value])
+                      setAllFriend(oldArray => [...oldArray,value])
               })
       })
-      setOpenLoading(false);
-    }
+      // Axios.post("http://localhost:3001/cn-all-friend", {
+      //   current_id: user[0].id
+      // })
+      //   .then((response)=>{
+      //     setAllFriend(response.data)
+      //   })
+        setOpenLoading(false);
+        setOpenLoading(false);
+      }
   },[user])
 
   return (

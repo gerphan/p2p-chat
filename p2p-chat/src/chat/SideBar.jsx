@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import { Axios } from "axios";
 import "./ChatArea.css";
 import ChatArea from "./ChatArea";
 import AddFriendArea from "./AddFriendArea";
@@ -33,15 +33,17 @@ export default function SideBar ( {
 
     const handleOpenChat = (value) => {
         setOpenLoading(true);
-        // let ws = new WebSocket("ws://localhost:3000/");
-        // console.log(ws.readyState)
-        // if (ws.readyState === 3) {
-        //     Axios.post("")
+        console.log(value)
+            // console.log(ws.readyState)
+            // Axios.post("http://127.0.0.1:5000:1/post", 1)
         //         .then((response)=>{
-        //             console.log(ws.readyState)
+        //             // console.log(ws.readyState)
         //         })
         //         .catch((err)=>{})
-        // }
+        // } 
+        // else if (ws.readyState === 1) {
+
+        // } 
 
         // console.log(ws);
         // if (ws.readyState)
@@ -123,7 +125,7 @@ export default function SideBar ( {
                     </div> */}
                 </div>
             </div>
-            {!openAddFriend && <ChatArea friend={friend} />}
+            {!openAddFriend && <ChatArea user={user} friend={friend} />}
             {openAddFriend && <AddFriendArea user={user} allStranger={allStranger} setAllStranger={setAllStranger} setAllFriend={setAllFriend} />}
         </div>
     )
