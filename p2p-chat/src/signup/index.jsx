@@ -4,7 +4,13 @@ import Axios from "axios";
 import "./signup.css"
 import Loading from "../loading/loading";
 
+import { child, ref, set, update, onValue } from "firebase/database";
+import {database} from "../firebase"
+
+
 function SignUp( { existUser } ) {
+    const db = ref(database);
+
     const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
@@ -56,6 +62,12 @@ function SignUp( { existUser } ) {
                         navigate('../');
                     })
                     .catch((err)=>{console.log(err)})
+                
+                set(child(db, 'account/' + (Number(existUser.length) + 1)), {
+                    username: username,
+                    password: password,
+                    is_active: "false",
+                });
             }
         } 
     }

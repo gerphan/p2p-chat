@@ -6,6 +6,10 @@ import ChatArea from "./ChatArea";
 import AddFriendArea from "./AddFriendArea";
 import Loading from "../loading/loading";
 
+import {database} from "../firebase";
+import { child, ref, set, get, update } from "firebase/database";
+
+
 export default function SideBar ( {
     user, setUser, setLogin,
     allFriend, setAllFriend,
@@ -13,7 +17,15 @@ export default function SideBar ( {
     allPort, setAllPort
 } ) {
 
+    const db = ref(database);
+    window.addEventListener("beforeunload", function (e) {
+            update(child(db, 'account/' + user[0].id), {
+                is_active: "false",
+            })                      
+        });
+
     const [openLoading, setOpenLoading] = useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
 
     const [openAddFriend, setOpenAddFriend] = useState(true);
     const [friend, setFriend] = useState();
@@ -21,11 +33,9 @@ export default function SideBar ( {
     const navigate = useNavigate();
 
     const [search, setSearch] = useState('');
-    const [searchFriend, setSearchFriend] = useState([]);
+    const [searchFriend, setSearchFriend] = useState(allFriend);
 
-    const [port, setPort] = useState();
-
-    // console.log(all)
+    const [port, setPort] = useState(1000);   
 
     useEffect(()=>{
         setOpenLoading(true);
@@ -37,40 +47,55 @@ export default function SideBar ( {
     },[search, allFriend])
 
     const handleOpenChat = (value) => {
-        setOpenLoading(true);
-        console.log(value);
-        console.log(allPort);
+        if (value.id == 16 || value.id == 4 || value.id ==2 || value.id == 1){
+            setOpenLoading(true);
+            console.log(value);
+            console.log(allPort);
 
-        allPort.every((e)=>{
-            console.log(e.friend_id === value.id)
-            if (e.friend_id === value.id) {
-                setPort(e.port);
-                return false;
-            }
-            else return true
-        })
+            allPort.every((e)=>{
+                console.log(e.friend_id === value.id)
+                if ((e.friend_id === value.id && e.current_id === user[0].id) || 
+                    (e.friend_id === user[0].id && e.current_id === value.id)) {
+                    setPort(e.port + 1000);
+                    return false;
+                }
+                else return true
+            })
 
-            // console.log(ws.readyState)
-            // Axios.post("http://127.0.0.1:5000:1/post", 1)
-        //         .then((response)=>{
-        //             // console.log(ws.readyState)
-        //         })
-        //         .catch((err)=>{})
-        // } 
-        // else if (ws.readyState === 1) {
+                // console.log(ws.readyState)
+                // Axios.post("http://127.0.0.1:5000:1/post", 1)
+            //         .then((response)=>{
+            //             // console.log(ws.readyState)
+            //         })
+            //         .catch((err)=>{})
+            // } 
+            // else if (ws.readyState === 1) {
 
-        // } 
+            // } 
 
-        // console.log(ws);
-        // if (ws.readyState)
-        setFriend(value)
-        setOpenAddFriend(false);
-        setOpenLoading(false);
+            // console.log(ws);
+            // if (ws.readyState)
+            setFriend(value)
+            setOpenAddFriend(false);
+            setOpenLoading(false);
+        }
+        else {
+            setOpenAlert(true);
+            setTimeout(() => {
+                setOpenAlert(false);
+            }, 1200);
+        }
     }
 
     return (
         <div className="w-100 vh-100 row g-0">
             {openLoading && <Loading />}
+            {openAlert && 
+                <div class="alert alert-success mb-0 fs-1 mt-3 mb-3 text-center" role="alert">
+                    <i class="fa-solid fa-check me-2"></i>
+                    User offline
+                </div>
+            }
             <div className="col-3 p-5 chat-container">
                 <div className="text-light mb-4 row g-0 justify-content-center align-items-center ps-1">
                     <div className="col pb-3">
@@ -78,7 +103,8 @@ export default function SideBar ( {
                         <p className="text-success fs-2 fw-bolder">Online</p>
                     </div>
                     <div className="col-xxl-4 col-xl-12">
-                        <button type="button" className="float-end btn btn-lg btn-danger fs-2 w-100" onClick={()=>{setLogin(false); navigate("../")}}>
+                        <button type="button" className="float-end btn btn-lg btn-danger fs-2 w-100"                             
+                            onClick={()=>{update(child(db, 'account/' +  user[0].id), {is_active: "false",}); setLogin(false); navigate("../");  }}>
                             Log out <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                     </div>
@@ -98,7 +124,7 @@ export default function SideBar ( {
                         return (
                             <div key={index} className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat(value)}>
                                 <p className="fw-bold pl-2">
-                                    <span className={"fs-5 float-start p-2 pb-3" + " text-success"}><i className="fa-solid fa-circle p-1"></i> </span>
+                                    <span className={"fs-5 float-start p-2 pb-3" + ( " text-success")}><i className="fa-solid fa-circle p-1"></i> </span>
                                     {value.username}
                                     <p className="text-success fs-2">Online</p>
                                     {/* <span className="float-end fw-light fs-3 pt-2">16:45</span> */}

@@ -4,7 +4,12 @@ import Axios from "axios";
 import "./login.css";
 import Loading from "../loading/loading";
 
+import { child, ref, set, get, update } from "firebase/database";
+import {database} from "../firebase"
+
 function Login( {user, setUser, setLogin} ) {
+
+    const db = ref(database);
 
     const navigate = useNavigate();
 
@@ -29,6 +34,20 @@ function Login( {user, setUser, setLogin} ) {
                     setLogin(true);
                     setOpenLoading(false);
                     navigate("../chat");
+                    get(child(db, 'account/')).then((snapshot) => {
+                        for (var i in [...Array(100).keys()]) {
+                            if (snapshot.toJSON()[i]) {
+                                console.log(snapshot.toJSON()[i])
+                                if (snapshot.toJSON()[i].username == username && snapshot.toJSON()[i].password == password) {
+                                    update(child(db, 'account/' + i), {
+                                        is_active: "true",
+                                    });
+                                }
+                            }
+                        }
+                      }).catch((error) => {
+                        console.error(error);
+                      });
                 }
                 else {
                     setOpenLoading(false);

@@ -6,24 +6,6 @@ import Login from "./login/index";
 import SignUp from "./signup/index";
 import Loading from "./loading/loading";
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCl1BRqEhNXaJggG6O2bbhiwWfMawNnDvI",
-  authDomain: "computernetwork-9dfeb.firebaseapp.com",
-  projectId: "computernetwork-9dfeb",
-  storageBucket: "computernetwork-9dfeb.appspot.com",
-  messagingSenderId: "734668976914",
-  appId: "1:734668976914:web:e9118f695e0452129fb9cb"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
 function App() {
 
   const [login, setLogin] = useState(false);
@@ -45,8 +27,6 @@ function App() {
   const [allStranger, setAllStranger] = useState([]);
   const [openLoading, setOpenLoading] = useState(false);
 
-  console.log(user);
-
   useEffect(()=>{
     if (login) {
       setOpenLoading(true);
@@ -59,8 +39,6 @@ function App() {
           })
     }
   },[user])
-
-  console.log(allUser)
 
   useEffect(()=>{
     if (login) {
