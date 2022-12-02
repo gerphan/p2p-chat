@@ -37,7 +37,7 @@ export default function SideBar ( {
 
     const [port, setPort] = useState(1000);   
 
-    useEffect(()=>{
+     useEffect(()=>{
         setOpenLoading(true);
         setSearchFriend([]);
         allFriend.forEach(friend => {
@@ -47,7 +47,7 @@ export default function SideBar ( {
     },[search, allFriend])
 
     const handleOpenChat = (value) => {
-        if (value.id == 16 || value.id == 4 || value.id ==2 || value.id == 1){
+        if (value.id == 16 || value.id ==2 || value.id == 1){
             setOpenLoading(true);
             console.log(value);
             console.log(allPort);
@@ -90,12 +90,6 @@ export default function SideBar ( {
     return (
         <div className="w-100 vh-100 row g-0">
             {openLoading && <Loading />}
-            {openAlert && 
-                <div class="alert alert-success mb-0 fs-1 mt-3 mb-3 text-center" role="alert">
-                    <i class="fa-solid fa-check me-2"></i>
-                    User offline
-                </div>
-            }
             <div className="col-3 p-5 chat-container">
                 <div className="text-light mb-4 row g-0 justify-content-center align-items-center ps-1">
                     <div className="col pb-3">
@@ -119,14 +113,22 @@ export default function SideBar ( {
                     <i className="fa-solid fa-magnifying-glass ms-2"></i>
                 </div>
                 <div className="p-1 bg-secondary mb-4 rounded fs-3"></div>
+                {openAlert && 
+                    <div class="alert alert-success mb-0 fs-1 mt-3 mb-3 text-center" role="alert">
+                        <i class="fa-solid fa-check me-2"></i>
+                        User offline
+                    </div>
+                }
                 <div className="">
                     {searchFriend.map((value, index) => {
                         return (
                             <div key={index} className="chat-tab bg-light w-90 p-3" onClick={()=>handleOpenChat(value)}>
                                 <p className="fw-bold pl-2">
-                                    <span className={"fs-5 float-start p-2 pb-3" + ( " text-success")}><i className="fa-solid fa-circle p-1"></i> </span>
+                                    <span className={"fs-5 float-start p-2 pb-3" + ((value.id ==16 || value.id == 2 || value.id == 1) ? " text-success" : " text-secondary")}><i className="fa-solid fa-circle p-1"></i> </span>
                                     {value.username}
-                                    <p className="text-success fs-2">Online</p>
+                                    {(value.id ==16 || value.id == 2 || value.id == 1) ?
+                                        <p className="text-success fs-2">Online</p> :
+                                        <p className="text-secondary fs-2">Offline</p> }
                                     {/* <span className="float-end fw-light fs-3 pt-2">16:45</span> */}
                                 </p>
                                 {/* <p className={"fs-2 pt-2 pr-3 text-message" + " fw-bold"}>

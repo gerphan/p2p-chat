@@ -23,13 +23,13 @@ export default function ChatArea ( {user, friend, port } ){
 
 
         onValue(child(db, 'messsage/1016/ha'), (snapshot) => {
-            data =snapshot.toJSON()['1'].content;
+            data =snapshot.toJSON()['1'];
             // setHa(data)
             // setOldMessage(oldArray => [...oldArray, data])
         });
     // } else {
         onValue(child(db, 'messsage/1016/loc'), (snapshot) => {
-            data1 =snapshot.toJSON()['1'].content;
+            data1 =snapshot.toJSON()['1'];
             // setloc(data1);
             // setOldFriendMessage(oldArray => [...oldArray, data])
         });
@@ -91,7 +91,11 @@ export default function ChatArea ( {user, friend, port } ){
     const sendMessage = (e) =>{
         e.preventDefault();
         if (message.trim() !== ''){ 
-            let a = {message: message.trim(), id: user[0].id}
+            let a = {message: message.trim(), id: user[0].id, 
+                date:new Date().toLocaleTimeString('en-US', { hour12: false, 
+                hour: "numeric", 
+                minute: "numeric"})}
+                console.log(a)
             ws.send(JSON.stringify(a));
             // var file = document
             //     .querySelector('input[type="file"]')
@@ -100,11 +104,13 @@ export default function ChatArea ( {user, friend, port } ){
             if (user[0].username == 'locle') {
                 set(child(db, 'messsage/1016/ha/' + (Number(oldMessage.length) + 1)) ,{
                     content:message,
+                    time:a.date
                 })
             } else if(user[0].username == 'hanguyen') {
                 console.log(oldFriendMessage.length);
                 set(child(db, 'messsage/1016/loc/' + (Number(oldFriendMessage.length) + 1)) ,{
                     content:message,
+                    time:a.date
                 })
             }
             ws.addEventListener('message', (event) => {
@@ -146,32 +152,36 @@ export default function ChatArea ( {user, friend, port } ){
                         </div> 
                     ) 
                 })} */}
-                {user[0].username =="hanguyen" &&
+                {user[0].username =="hanguyen" && data && data1 &&
                     <React.Fragment>
                         <div className="mb-5 row g-0">
                             <p className="chat-bubble friend">
-                                {data}
+                                {data.content}
+                                <span>{data.time}</span>
                             </p>
                         </div>
                         <div className="mb-5 row g-0">
                             <p className="col"></p>
                             <p className="col-3 chat-bubble self">
-                                {data1}
+                                {data1.content}
+                                <span>{data1.time}</span>
                             </p>
                         </div>
                     </React.Fragment>
                 }
-                {user[0].username =="locle" &&
+                {user[0].username =="locle" && data && data1 &&
                 <React.Fragment>
                     <div className="mb-5 row g-0">
                         <p className="chat-bubble friend">
-                            {data1}
+                            {data1.content}
+                            <span>{data1.time}</span>
                         </p>
                     </div>
                     <div className="mb-5 row g-0">
                         <p className="col"></p>
                         <p className="col-3 chat-bubble self">
-                            {data}
+                            {data.content}
+                            <span>{data.time}</span>
                         </p>
                     </div>
                 </React.Fragment>}
