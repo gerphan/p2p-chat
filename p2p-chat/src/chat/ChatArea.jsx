@@ -145,6 +145,9 @@ export default function ChatArea ( {user, friend, port } ){
         // settrigger(!trigger)
     }
 
+    console.log(oldMessage);
+    console.log(oldFriendMessage);
+
     return(
         <div className="col chat-area">
             <p className="display-4 shadow fw-bold border-bottom p-4">
@@ -152,28 +155,45 @@ export default function ChatArea ( {user, friend, port } ){
                 {friend.username}
             </p>
             <div className="p-5 fs-1 display-area">
-                <div className="mb-5 row g-0">
-                    <p className="chat-bubble friend">
-                        {data }
-                    </p>
-                </div>
-                <div className="mb-5 row g-0">
-                    <p className="col"></p>
-                    <p className="col-3 chat-bubble self">
-                        {data1}
-                    </p>
-                </div>
-                {/* {oldMessage.map((item, index)=>{ */}
-                    {/* return ( */}
-                        {/* <div className="mb-5 row g-0">
+                {/* {oldMessage.map((item, index)=>{
+                    return (
+                        <div className="mb-5 row g-0">
                             {data.id === user[0].id && <p className="col"></p>}
                             <p className={"chat-bubble"+ (data.id === user[0].id ? " col-3 self" : " friend")}>
                                 {data.content}
-                                {/* <span>16:45</span> */}
-                            {/* </p>
-                        </div>  */}
-                    {/* )  */}
-                {/* })} */}
+                                <span>16:45</span>
+                            </p>
+                        </div> 
+                    ) 
+                })} */}
+                {user[0].username =="hanguyen" &&
+                <React.Fragment>
+                    <div className="mb-5 row g-0">
+                        <p className="chat-bubble friend">
+                            {data }
+                        </p>
+                    </div>
+                    <div className="mb-5 row g-0">
+                        <p className="col"></p>
+                        <p className="col-3 chat-bubble self">
+                            {data1}
+                        </p>
+                    </div>
+                </React.Fragment>}
+                {user[0].username =="locle" &&
+                <React.Fragment>
+                    <div className="mb-5 row g-0">
+                        <p className="chat-bubble friend">
+                            {data1 }
+                        </p>
+                    </div>
+                    <div className="mb-5 row g-0">
+                        <p className="col"></p>
+                        <p className="col-3 chat-bubble self">
+                            {data}
+                        </p>
+                    </div>
+                </React.Fragment>}
 
             </div>
             <form className="justify-content-center align-items-center type-area" onSubmit={(e)=>{sendMessage(e)}}>
