@@ -50,6 +50,11 @@ export default function ChatArea ( {user, friend, port } ){
     
  
     //
+    useEffect(()=>{
+        setTimeout(() => {
+            settrigger(!trigger)
+        }, 500);
+    },[trigger])
 
     useEffect(()=>{
         Axios.get('http://127.0.0.1:5000/creator/' + port)
@@ -82,44 +87,18 @@ export default function ChatArea ( {user, friend, port } ){
             
         // })
     // }
-
-
-    useEffect(()=>{
-        // setTimeout(() => {
-        //     settrigger(!trigger)
-        // }, 1000);
-        ws.onopen = () => {
-            console.log('WebSocket Client Connected');
-        };
-        // ws.onmessage = (event) => {
-        //     var data = JSON.parse(event.data);
-        //     console.log(data)
-        //     console.log(oldMessage)
-        //     // Xử lý data ở đây
-        //     setOldMessage(oldArray => [...oldArray, data]);
-        // }
-        // ws.addEventListener('message', (event) => {
-        //     var data = JSON.parse(event.data);
-        //     console.log(data)
-        //     console.log(oldMessage)
-        //     // Xử lý data ở đây
-        //     if (user[0].username == 'locle') {
-        //         setOldFriendMessage(oldArray => [...oldArray, data]);
-        //     }
-        //     else { 
-        //         setOldMessage(oldArray => [...oldArray, data]); 
-        //     }
-        // });
-    },[trigger])
-        
+    
 
 
     const sendMessage = (e) =>{
         e.preventDefault();
         let a = {message: message, id: user[0].id}
         ws.send(JSON.stringify(a));
+        // var file = document
+        //     .querySelector('input[type="file"]')
+        //     .files[0];
+        // ws.send(file);
         if (user[0].username == 'locle') {
-            console.log(1);
             set(child(db, 'messsage/1016/ha/' + (Number(oldMessage.length) + 1)) ,{
                 content:message,
             })
@@ -167,24 +146,25 @@ export default function ChatArea ( {user, friend, port } ){
                     ) 
                 })} */}
                 {user[0].username =="hanguyen" &&
-                <React.Fragment>
-                    <div className="mb-5 row g-0">
-                        <p className="chat-bubble friend">
-                            {data }
-                        </p>
-                    </div>
-                    <div className="mb-5 row g-0">
-                        <p className="col"></p>
-                        <p className="col-3 chat-bubble self">
-                            {data1}
-                        </p>
-                    </div>
-                </React.Fragment>}
+                    <React.Fragment>
+                        <div className="mb-5 row g-0">
+                            <p className="chat-bubble friend">
+                                {data}
+                            </p>
+                        </div>
+                        <div className="mb-5 row g-0">
+                            <p className="col"></p>
+                            <p className="col-3 chat-bubble self">
+                                {data1}
+                            </p>
+                        </div>
+                    </React.Fragment>
+                }
                 {user[0].username =="locle" &&
                 <React.Fragment>
                     <div className="mb-5 row g-0">
                         <p className="chat-bubble friend">
-                            {data1 }
+                            {data1}
                         </p>
                     </div>
                     <div className="mb-5 row g-0">
