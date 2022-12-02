@@ -53,7 +53,7 @@ export default function ChatArea ( {user, friend, port } ){
     useEffect(()=>{
         setTimeout(() => {
             settrigger(!trigger)
-        }, 500);
+        }, 50);
     },[trigger])
 
     useEffect(()=>{
@@ -87,41 +87,42 @@ export default function ChatArea ( {user, friend, port } ){
             
         // })
     // }
-    
-
 
     const sendMessage = (e) =>{
         e.preventDefault();
-        let a = {message: message, id: user[0].id}
-        ws.send(JSON.stringify(a));
-        // var file = document
-        //     .querySelector('input[type="file"]')
-        //     .files[0];
-        // ws.send(file);
-        if (user[0].username == 'locle') {
-            set(child(db, 'messsage/1016/ha/' + (Number(oldMessage.length) + 1)) ,{
-                content:message,
-            })
-        } else if(user[0].username == 'hanguyen') {
-            console.log(oldFriendMessage.length);
-            set(child(db, 'messsage/1016/loc/' + (Number(oldFriendMessage.length) + 1)) ,{
-                content:message,
-            })
-        }
-        ws.addEventListener('message', (event) => {
-            var data = JSON.parse(event.data);
-            console.log(data)
-            console.log(oldMessage)
-            // Xử lý data ở đây
+        if (message.trim() !== ''){ 
+            let a = {message: message.trim(), id: user[0].id}
+            ws.send(JSON.stringify(a));
+            // var file = document
+            //     .querySelector('input[type="file"]')
+            //     .files[0];
+            // ws.send(file);
             if (user[0].username == 'locle') {
-                setOldFriendMessage(oldArray => [...oldArray, data]);
+                set(child(db, 'messsage/1016/ha/' + (Number(oldMessage.length) + 1)) ,{
+                    content:message,
+                })
+            } else if(user[0].username == 'hanguyen') {
+                console.log(oldFriendMessage.length);
+                set(child(db, 'messsage/1016/loc/' + (Number(oldFriendMessage.length) + 1)) ,{
+                    content:message,
+                })
             }
-            else { 
-                setOldMessage(oldArray => [...oldArray, data]); 
-            }
-        });
-        // setOldMessage(oldArray => [...oldArray, a]);
-        // settrigger(!trigger)
+            ws.addEventListener('message', (event) => {
+                var data = JSON.parse(event.data);
+                console.log(data)
+                console.log(oldMessage)
+                // Xử lý data ở đây
+                if (user[0].username == 'locle') {
+                    setOldFriendMessage(oldArray => [...oldArray, data]);
+                }
+                else { 
+                    setOldMessage(oldArray => [...oldArray, data]); 
+                }
+            });
+            // setOldMessage(oldArray => [...oldArray, a]);
+            // settrigger(!trigger)
+            setMessage('');
+        }
     }
 
     console.log(oldMessage);
@@ -176,7 +177,8 @@ export default function ChatArea ( {user, friend, port } ){
                 </React.Fragment>}
 
             </div>
-            <form className="justify-content-center align-items-center type-area" onSubmit={(e)=>{sendMessage(e)}}>
+            <form className="justify-content-center align-items-center type-area" 
+                    onSubmit={(e)=>{sendMessage(e)}} >
                 <textarea rows="1" id="message" placeholder="Aa..."  className="border border-0 rounded-4 p-3 ps-4 fs-1" 
                         value={message} onChange={e=>setMessage(e.target.value)}></textarea>
                 <div className="file-button ps-4 pe-4">
