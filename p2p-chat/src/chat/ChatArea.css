@@ -136,3 +136,9 @@ input:focus {
     cursor: pointer;
     opacity: 0;
 }
+
+.submit-message {
+    background-color: #15202B;
+    border: none;
+    width: 45px;
+}

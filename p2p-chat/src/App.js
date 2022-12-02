@@ -41,6 +41,7 @@ function App() {
 
   const [allUser, setAllUser] = useState([]);
   const [allFriend, setAllFriend] = useState([]);
+  const [allPort, setAllPort] = useState([]);
   const [allStranger, setAllStranger] = useState([]);
   const [openLoading, setOpenLoading] = useState(false);
 
@@ -78,12 +79,12 @@ function App() {
                       setAllFriend(oldArray => [...oldArray,value])
               })
       })
-      // Axios.post("http://localhost:3001/cn-all-friend", {
-      //   current_id: user[0].id
-      // })
-      //   .then((response)=>{
-      //     setAllFriend(response.data)
-      //   })
+      Axios.post("http://localhost:3001/cn-all-friend", {
+        current_id: user[0].id
+      })
+        .then((response)=>{
+          setAllPort(response.data)
+        })
         setOpenLoading(false);
         setOpenLoading(false);
       }
@@ -102,6 +103,7 @@ function App() {
             user={user} setUser={setUser} setLogin={setLogin} 
             allFriend={allFriend} setAllFriend={setAllFriend}
             allStranger={allStranger} setAllStranger={setAllStranger}
+            allPort={allPort} setAllPort={setAllPort}
         />} /> }
         {!login && <Route path="/chat" element={<Navigate to="/"/>} /> }
       </Routes>

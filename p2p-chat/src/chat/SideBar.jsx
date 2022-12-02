@@ -9,7 +9,8 @@ import Loading from "../loading/loading";
 export default function SideBar ( {
     user, setUser, setLogin,
     allFriend, setAllFriend,
-    allStranger, setAllStranger
+    allStranger, setAllStranger,
+    allPort, setAllPort
 } ) {
 
     const [openLoading, setOpenLoading] = useState(false);
@@ -22,6 +23,10 @@ export default function SideBar ( {
     const [search, setSearch] = useState('');
     const [searchFriend, setSearchFriend] = useState([]);
 
+    const [port, setPort] = useState();
+
+    // console.log(all)
+
     useEffect(()=>{
         setOpenLoading(true);
         setSearchFriend([]);
@@ -33,7 +38,18 @@ export default function SideBar ( {
 
     const handleOpenChat = (value) => {
         setOpenLoading(true);
-        console.log(value)
+        console.log(value);
+        console.log(allPort);
+
+        allPort.every((e)=>{
+            console.log(e.friend_id === value.id)
+            if (e.friend_id === value.id) {
+                setPort(e.port);
+                return false;
+            }
+            else return true
+        })
+
             // console.log(ws.readyState)
             // Axios.post("http://127.0.0.1:5000:1/post", 1)
         //         .then((response)=>{
@@ -125,7 +141,7 @@ export default function SideBar ( {
                     </div> */}
                 </div>
             </div>
-            {!openAddFriend && <ChatArea user={user} friend={friend} />}
+            {!openAddFriend && <ChatArea user={user} friend={friend} port={port}/>}
             {openAddFriend && <AddFriendArea user={user} allStranger={allStranger} setAllStranger={setAllStranger} setAllFriend={setAllFriend} />}
         </div>
     )
