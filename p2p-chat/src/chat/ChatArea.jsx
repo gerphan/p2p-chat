@@ -180,7 +180,10 @@ export default function ChatArea ( {user, friend, port } ){
             <form className="justify-content-center align-items-center type-area" 
                     onSubmit={(e)=>{sendMessage(e)}} >
                 <textarea rows="1" id="message" placeholder="Aa..."  className="border border-0 rounded-4 p-3 ps-4 fs-1" 
-                        value={message} onChange={e=>setMessage(e.target.value)}></textarea>
+                        value={message} onChange={e=>setMessage(e.target.value)}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {sendMessage(e)}}}        
+                ></textarea>
                 <div className="file-button ps-4 pe-4">
                     <input type="file" name="file" id="file" data-multiple-caption="{count} files selected" multiple />
                     <i className="fa-solid fa-file-arrow-up text-white text-center"></i>
